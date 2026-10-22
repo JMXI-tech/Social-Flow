@@ -138,6 +138,6 @@ app.get("/api/posts", async (_req, res) => {
 });
 
 app.get("/{*splat}", (_req, res) =>
-  res.sendFile(resolve("public/index.html"))
+  res.sendFile(resolve("index.html"))
 );
 app.listen(PORT, () => console.log(`Social Publishing Platform running at http://localhost:${PORT}`));
