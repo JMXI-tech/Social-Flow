@@ -7,6 +7,7 @@ import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { randomUUID } from "node:crypto";
 
 const app = express();
+app.use(express.static(process.cwd()));
 const PORT = Number(process.env.PORT || 3000);
 const CLI = process.env.SOCIALCLAW_BIN || "socialclaw";
 const DATA_DIR = resolve("data");
