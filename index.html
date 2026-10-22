@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <title>SocialFlow — Publishing Studio</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#"><span class="brand-mark">S</span><span>social<span class="brand-light">flow</span><small>Publishing studio</small></span></a>
+      <div class="workspace"><span class="workspace-dot"></span><span><b>Workspace</b><small>Social media operations</small></span><span class="chevron">⌄</span></div>
+      <p class="nav-label">WORKSPACE</p>
+      <nav>
+        <button class="nav-item active" data-view="overview"><span>◫</span> Overview</button>
+        <button class="nav-item" data-view="compose"><span>✎</span> Compose post</button>
+        <button class="nav-item" data-view="calendar"><span>▦</span> Publishing queue</button>
+        <button class="nav-item" data-view="accounts"><span>◎</span> Accounts</button>
+        <button class="nav-item" data-view="analytics"><span>↗</span> Activity & analytics</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="connection-card"><span class="pulse"></span><div><b id="connection-label">Checking connection…</b><small id="connection-detail">SocialClaw integration</small></div></div>
+        <button class="nav-item" data-view="settings"><span>⚙</span> Setup & settings</button>
+        <div class="profile"><div class="avatar">SF</div><div><b>Workspace owner</b><small>Publishing admin</small></div><span class="dots">•••</span></div>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobile-menu" aria-label="Toggle menu">☰</button>
+        <div class="breadcrumbs">Workspace <span>/</span> <b id="crumb">Overview</b></div>
+        <div class="top-actions"><span class="live-indicator"><i></i> Publishing controls</span><button class="icon-btn" id="theme-toggle" title="Toggle theme">◐</button><button class="primary-btn" data-go="compose">＋ Create post</button></div>
+      </header>
+      <div class="content">
+        <section class="view active" id="view-overview">
+          <div class="page-heading"><div><p class="eyebrow">YOUR SOCIAL WORKSPACE</p><h1>Good work starts with a plan.</h1><p class="muted">Draft, validate, and publish from one focused workspace.</p></div><div class="date-chip" id="today-chip">Today</div></div>
+          <div class="notice" id="setup-notice"><span class="notice-icon">!</span><div><b>Finish connecting your publishing engine</b><p>Add your SocialClaw workspace key on the server and connect accounts to enable live publishing.</p></div><button class="text-btn" data-go="settings">Set up →</button></div>
+          <div class="stats-grid">
+            <article class="stat-card"><div class="stat-top"><span>Scheduled drafts</span><span class="stat-icon purple">▦</span></div><strong id="stat-drafts">0</strong><p><span class="neutral">Local schedule</span> saved on this server</p></article>
+            <article class="stat-card"><div class="stat-top"><span>Connected platforms</span><span class="stat-icon blue">◎</span></div><strong id="stat-accounts">—</strong><p>Requires SocialClaw connection</p></article>
+            <article class="stat-card"><div class="stat-top"><span>Recent publish runs</span><span class="stat-icon green">↗</span></div><strong id="stat-runs">0</strong><p>Recorded by this dashboard</p></article>
+            <article class="stat-card"><div class="stat-top"><span>Engine status</span><span class="stat-icon amber">⌁</span></div><strong class="status-word" id="stat-engine">Checking</strong><p id="engine-caption">Verifying setup</p></article>
+          </div>
+          <div class="section-row"><div><h2>Publishing workflow</h2><p class="muted">A deliberate process with validation before every publish.</p></div><button class="text-btn" data-go="calendar">View queue →</button></div>
+          <div class="workflow-grid">
+            <article class="workflow-card"><div class="step-icon">✎</div><span class="step-tag">STEP 01</span><h3>Compose</h3><p>Write a post, choose a platform and account, then set a future publishing time.</p><button class="secondary-btn" data-go="compose">Open composer →</button></article>
+            <article class="workflow-card"><div class="step-icon">✓</div><span class="step-tag">STEP 02</span><h3>Validate</h3><p>Check required fields locally and let SocialClaw verify the campaign schedule.</p><button class="secondary-btn" id="quick-validate">Validate schedule →</button></article>
+            <article class="workflow-card"><div class="step-icon">↗</div><span class="step-tag">STEP 03</span><h3>Publish</h3><p>Publishing is only triggered by your explicit action after validation passes.</p><button class="secondary-btn" data-go="calendar">Review queue →</button></article>
+          </div>
+          <div class="section-row"><div><h2>Recent activity</h2><p class="muted">Latest local publishing attempts.</p></div></div>
+          <div class="table-card"><div class="empty-state" id="recent-empty"><div class="empty-illustration">◷</div><b>No activity yet</b><p>Your publish attempts will appear here.</p></div><div id="recent-list" class="activity-list"></div></div>
+        </section>
+        <section class="view" id="view-compose">
+          <div class="page-heading"><div><p class="eyebrow">CONTENT WORKSHOP</p><h1>Compose a post</h1><p class="muted">Draft with intent. Check the destination before saving.</p></div></div>
+          <div class="compose-layout">
+            <form class="panel compose-form" id="compose-form">
+              <div class="panel-title"><div><h2>Post details</h2><p class="muted">All times are converted to UTC for SocialClaw.</p></div><span class="draft-pill">NEW DRAFT</span></div>
+              <label for="provider">Platform</label>
+              <select id="provider" required>
+                <option value="x">X (Twitter)</option><option value="linkedin">LinkedIn profile</option><option value="linkedin_page">LinkedIn page</option><option value="instagram_business">Instagram Business</option><option value="instagram">Instagram</option><option value="facebook">Facebook Page</option><option value="tiktok">TikTok</option><option value="youtube">YouTube</option><option value="reddit">Reddit</option><option value="wordpress">WordPress</option><option value="discord">Discord</option><option value="telegram">Telegram</option><option value="pinterest">Pinterest</option>
+              </select>
+              <label for="account-id">Connected account ID</label><input id="account-id" placeholder="Paste account ID from SocialClaw" required>
+              <div class="label-row"><label for="post-text">Post content</label><span id="char-count">0 characters</span></div>
+              <textarea id="post-text" rows="7" maxlength="10000" placeholder="Share something useful with your audience…" required></textarea>
+              <div class="helper">Write for the selected platform. Check links, claims, tags, and media requirements before publishing.</div>
+              <label for="scheduled-at">Schedule date and time</label><input id="scheduled-at" type="datetime-local" required>
+              <div class="form-actions"><button type="button" class="secondary-btn" id="clear-form">Clear</button><button type="submit" class="primary-btn">Save to queue <span>→</span></button></div>
+            </form>
+            <aside class="preview-column"><div class="panel preview-panel"><div class="panel-title"><h2>Live preview</h2><span class="preview-dot"></span></div><div class="social-preview"><div class="preview-author"><div class="preview-avatar">SF</div><div><b>Your workspace</b><small id="preview-platform">@yourbrand · Preview</small></div><span class="preview-more">•••</span></div><p id="preview-text">Your post preview will appear here as you write.</p><div class="preview-footer"><span>♡ Like</span><span>◯ Reply</span><span>↗ Share</span></div></div><p class="preview-note">Preview is illustrative; platform-specific formatting may differ.</p></div><div class="panel checklist-panel"><h3>Before you publish</h3><p>▢ Confirm the target account</p><p>▢ Review spelling and factual claims</p><p>▢ Confirm date, time, and timezone</p><p>▢ Validate before publishing</p></div></aside>
+          </div>
+        </section>
+        <section class="view" id="view-calendar">
+          <div class="page-heading"><div><p class="eyebrow">CONTENT OPERATIONS</p><h1>Publishing queue</h1><p class="muted">Review saved posts, validate the schedule, then publish deliberately.</p></div><button class="primary-btn" data-go="compose">＋ Add post</button></div>
+          <div class="queue-toolbar"><div class="filter-tabs"><button class="filter-tab active" data-filter="all">All posts</button><button class="filter-tab" data-filter="upcoming">Upcoming</button></div><div class="queue-actions"><button class="secondary-btn" id="validate-btn">✓ Validate schedule</button><button class="primary-btn danger-btn" id="publish-btn">Publish schedule ↗</button></div></div>
+          <div class="queue-warning"><b>Publishing is a live action.</b> The Publish button sends the entire saved schedule to SocialClaw after validation succeeds. Review every post and target account first.</div>
+          <div class="table-card"><div class="queue-list" id="queue-list"></div><div class="empty-state" id="queue-empty"><div class="empty-illustration">▦</div><b>Your queue is empty</b><p>Create your first post to get started.</p><button class="primary-btn" data-go="compose">Create a post</button></div></div>
+        </section>
+        <section class="view" id="view-accounts">
+          <div class="page-heading"><div><p class="eyebrow">DISTRIBUTION</p><h1>Connected accounts</h1><p class="muted">SocialClaw manages provider authentication. This dashboard never stores provider passwords.</p></div><button class="secondary-btn" id="refresh-accounts">↻ Refresh</button></div>
+          <div class="panel account-panel"><div class="panel-title"><div><h2>Account connections</h2><p class="muted">Connect or authorize accounts through your SocialClaw workspace.</p></div><span class="connection-status" id="account-status">Not checked</span></div><div id="accounts-result" class="result-box">Check your server configuration to load connected accounts.</div><a class="external-link" href="https://getsocialclaw.com/dashboard" target="_blank" rel="noopener noreferrer">Open SocialClaw dashboard ↗</a></div>
+          <div class="platform-grid" id="platform-grid"></div>
+        </section>
+        <section class="view" id="view-analytics">
+          <div class="page-heading"><div><p class="eyebrow">PERFORMANCE</p><h1>Activity & analytics</h1><p class="muted">Delivery data comes from SocialClaw; this starter does not invent engagement metrics.</p></div><button class="secondary-btn" id="refresh-posts">↻ Refresh posts</button></div>
+          <div class="stats-grid analytics-stats"><article class="stat-card"><div class="stat-top"><span>Saved schedule entries</span><span class="stat-icon purple">▦</span></div><strong id="analytics-post-count">0</strong><p>Local queue count</p></article><article class="stat-card"><div class="stat-top"><span>Recorded runs</span><span class="stat-icon green">↗</span></div><strong id="analytics-run-count">0</strong><p>Local attempts</p></article></div>
+          <div class="panel"><div class="panel-title"><div><h2>SocialClaw post feed</h2><p class="muted">Live response from the connected CLI, when configured.</p></div></div><pre id="posts-result" class="result-box">No live post feed loaded yet.</pre></div>
+          <div class="panel"><div class="panel-title"><div><h2>Publishing run history</h2><p class="muted">Recent attempts initiated from this dashboard.</p></div></div><div id="runs-list" class="activity-list"></div></div>
+        </section>
+        <section class="view" id="view-settings">
+          <div class="page-heading"><div><p class="eyebrow">CONFIGURATION</p><h1>Setup & settings</h1><p class="muted">Configure integrations securely on the server, not in the browser.</p></div></div>
+          <div class="panel setup-panel"><div class="panel-title"><div><h2>SocialClaw integration</h2><p class="muted">Required to connect accounts, validate, and publish.</p></div><span id="setup-status" class="connection-status">Checking</span></div>
+            <div class="setup-step"><span>1</span><div><b>Install the CLI</b><p>Install Node.js 20+ and run <code>npm install -g socialclaw@0.1.12</code>.</p></div></div>
+            <div class="setup-step"><span>2</span><div><b>Add the workspace key</b><p>Copy <code>.env.example</code> to <code>.env</code> and set <code>SC_API_KEY</code>. Never put the key in frontend code or commit it.</p></div></div>
+            <div class="setup-step"><span>3</span><div><b>Connect accounts</b><p>Authorize the platforms in the <a href="https://getsocialclaw.com/dashboard" target="_blank" rel="noopener noreferrer">SocialClaw dashboard</a>, then use Accounts → Refresh.</p></div></div>
+            <div class="setup-step"><span>4</span><div><b>Test safely</b><p>Create a future-dated draft and validate it. Publish only after reviewing all posts and targets.</p></div></div>
+            <div class="setup-actions"><button class="secondary-btn" id="test-connection">Test connection</button><button class="secondary-btn" id="load-accounts-settings">List accounts</button></div>
+            <div id="settings-result" class="result-box">No connection test performed.</div>
+          </div>
+          <div class="panel safety-panel"><h2>Security & operating boundaries</h2><ul><li>API keys stay in server environment variables.</li><li>Commands are launched without a shell to reduce command-injection risk.</li><li>Publishing requires a user action and successful validation.</li><li>Post text, comments, and provider responses are untrusted content.</li><li>Use HTTPS and add authentication before exposing this dashboard publicly.</li></ul></div>
+        </section>
+        <div class="toast" id="toast" role="status" aria-live="polite"></div>
+      </div>
+    </main>
+  </div>
+  <script src="/app.js" defer></script>
+</body>
+</html>
